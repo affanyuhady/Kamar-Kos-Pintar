@@ -19,28 +19,28 @@
 #include <Servo.h>
 #include <dht.h>
 
-#define RST_PIN         48          // Pin ini dapat di atur sesuka kallian
-#define SS_PIN          53          // Pin ini dapat di atur sesuka kallian
-#define dataPin         4           //pin dht22
+#define RST_PIN         48          
+#define SS_PIN          53        
+#define dataPin         4           
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 Servo servo, servo2;
 dht DHT;   
 
 String read_rfid;                   
-String ok_rfid_1="20f8d21e";        // RFID 1
-String ok_rfid_2="43a5e52ec5780";    // RFID 2
-String ok_rfid_3="466892acf2e80";         // RFID 3
-int lock = 2;                       // Relay
+String ok_rfid_1="";       
+String ok_rfid_2="";    
+String ok_rfid_3="";        
+int lock = 2;                       
 
-const int buttonPin = 8; //pin sensor LDR
-int gnd = 9;             //pin led low
-int led = 10;            //pin led high
+const int buttonPin = 8; 
+int gnd = 9;             
+int led = 10;            
 int buttonState = 0;
 
-int r1 = 5;   //pin motor dc1
-int l1 = 6;   //pin motor dc2
-int pwm = 7;  //pin pengatur kecepan motor dc
+int r1 = 5;  
+int l1 = 6;   
+int pwm = 7;  
 
 
 void setup() {
@@ -58,21 +58,13 @@ void setup() {
     Serial.print("Letakkan Kartu Anda ...");
     Serial.println();
 
-    pinMode(buttonPin, INPUT_PULLUP); //Fungsi PULLUP = mengganti resistor (menaikan tegangan)
+    pinMode(buttonPin, INPUT_PULLUP); 
     pinMode(led, OUTPUT);
     pinMode(gnd, OUTPUT);
     digitalWrite(gnd,LOW);
     digitalWrite(led,HIGH);
     servo2.attach(11);
     servo2.write(180);
-
-    /*pinMode(r1,OUTPUT);
-    pinMode(l1,OUTPUT);
-    pinMode(pwm,OUTPUT);
-    analogWrite(pwm,0);
-    digitalWrite(r1,HIGH);
-    digitalWrite(l1,LOW);
-    delay(500);*/
 }
 
 void dump_byte_array(byte *buffer, byte bufferSize) 
@@ -131,9 +123,9 @@ void lampu()
 
 void kipeh()
 {
-  int readData = DHT.read22(dataPin);//baca data dari sensor
-  float t = DHT.temperature;         // ambil nilai suhu
-  float h = DHT.humidity;            //ambil nilai kelembaban
+  int readData = DHT.read22(dataPin);
+  float t = DHT.temperature;         
+  float h = DHT.humidity;           
 
   if(t<20) {
     analogWrite(pwm,0);
